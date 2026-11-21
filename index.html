@@ -165,6 +165,44 @@ img{max-width:100%;display:block}
 .nav-pill[aria-current="true"]{background:var(--primary);border-color:transparent;color:#fff;box-shadow:0 8px 18px rgba(40,122,88,.2)}
 .game-nav .nav-note{font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap;margin-left:4px}
 
+/* Game menu list */
+.menu-hero{max-width:760px;margin:8px 0 24px}
+.menu-hero h1{
+  margin:0 0 10px;font-size:44px;font-size:clamp(33px,4.6vw,52px);line-height:1.05;
+  letter-spacing:-.03em;font-weight:900;
+}
+.menu-hero p{max-width:650px;color:var(--ink-2);font-size:14px;line-height:1.8;font-weight:600}
+.game-list{display:grid;gap:12px;max-width:980px}
+.game-menu-card{
+  width:100%;padding:20px 22px;border-radius:24px;border:1px solid var(--line);background:#fff;
+  display:grid;grid-template-columns:84px minmax(0,1fr) auto;align-items:center;gap:20px;
+  text-align:left;box-shadow:var(--shadow);transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .2s;
+}
+.game-menu-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:rgba(40,122,88,.25)}
+.game-menu-card:active{transform:scale(.987)}
+.gm-icon{
+  width:84px;height:84px;border-radius:24px;display:grid;place-items:center;font-size:43px;
+  background:#E6F4E8;box-shadow:inset 0 0 0 1px rgba(255,255,255,.9);
+}
+.gm-body{min-width:0}
+.gm-kicker{display:block;font-size:10.5px;font-weight:900;letter-spacing:.08em;color:var(--primary)}
+.gm-body h2{font-size:27px;line-height:1.15;font-weight:900;letter-spacing:-.02em;margin:4px 0 6px}
+.gm-body p{font-size:12.5px;line-height:1.7;font-weight:600;color:var(--ink-2);max-width:620px}
+.gm-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.gm-tags span{font-size:10px;font-weight:800;color:var(--ink-2);background:#F5F8F3;border:1px solid var(--line);padding:5px 8px;border-radius:999px}
+.gm-side{display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:104px}
+.gm-side b{font-size:29px;line-height:1;font-weight:900;letter-spacing:-.03em}
+.gm-side>span{font-size:10px;font-weight:800;color:var(--muted)}
+.gm-enter{
+  margin-top:9px;padding:8px 12px;border-radius:999px;background:var(--primary-soft);
+  color:var(--primary-d)!important;font-size:11px!important;font-weight:900!important;white-space:nowrap;
+}
+.menu-coming{
+  max-width:980px;padding:15px 18px;border:1px dashed var(--line-strong);border-radius:18px;
+  display:flex;align-items:center;gap:10px;color:var(--muted);font-size:11.5px;font-weight:700;
+}
+.menu-coming span{font-size:16px}
+
 /* Mind map */
 .map{position:relative;padding:8px 0 28px}
 .map-lines{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible}
@@ -315,6 +353,9 @@ img{max-width:100%;display:block}
   text-align:center;line-height:1.0;color:var(--ink);background:#fff;border:1px solid rgba(32,52,45,.09);
   border-radius:18px;padding:13px 18px;box-shadow:0 8px 18px rgba(32,52,45,.07);
 }
+.illus-word[data-point-speak]{cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
+.illus-word[data-point-speak]:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(32,52,45,.11)}
+.illus-word[data-point-speak]:active{transform:scale(.97)}
 .illus-gloss{
   position:relative;z-index:1;font-size:11px;font-weight:900;color:var(--a,var(--primary));
   background:#fff;border:1px solid rgba(32,52,45,.08);padding:7px 12px;border-radius:999px;
@@ -328,6 +369,14 @@ img{max-width:100%;display:block}
   padding:5px 9px;border-radius:8px;
 }
 .cn-meaning{font-size:13px;font-weight:800;color:var(--muted);margin-top:-7px}
+.study-voice-row{display:flex;gap:8px;flex-wrap:wrap}
+.voice-chip{
+  min-height:42px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;
+  display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:900;color:var(--ink-2);
+  box-shadow:0 3px 9px rgba(37,75,57,.05);transition:all .2s var(--ease);
+}
+.voice-chip:hover{transform:translateY(-1px);border-color:rgba(40,122,88,.28);background:#FBFEFB}
+.voice-chip.primary{background:var(--primary-soft);border-color:transparent;color:var(--primary-d)}
 .steps{counter-reset:step;display:grid;gap:11px;margin-top:4px}
 .steps li{
   position:relative;counter-increment:step;padding-left:35px;font-size:14.5px;line-height:1.82;
@@ -388,6 +437,11 @@ img{max-width:100%;display:block}
 .game-hud{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
 .game-hud b{font-size:12.5px;font-weight:900;font-variant-numeric:tabular-nums}
 .hud-score{font-size:11px;font-weight:900;color:var(--primary-d);background:var(--primary-soft);padding:5px 10px;border-radius:999px}
+.hud-voice{
+  font-size:10.5px;font-weight:900;color:#2E6784;background:#E7F2F9;padding:6px 10px;border-radius:999px;
+  display:inline-flex;align-items:center;gap:5px;transition:transform .2s var(--ease),background .2s;
+}
+.hud-voice:hover{transform:translateY(-1px);background:#DDEDF7}
 .hud-spacer{flex:1}
 .hud-exit{font-size:10.5px;font-weight:800;color:var(--muted);background:#F5F8F3;padding:6px 10px;border-radius:999px}
 .pbar{height:8px;border-radius:999px;background:#EDF2EB;overflow:hidden;margin-bottom:21px}
@@ -722,6 +776,17 @@ img{max-width:100%;display:block}
   .home-intro{margin:0 0 15px}
   .home-intro h1{font-size:31px}
   .home-intro p{font-size:13px}
+  .menu-hero{margin:2px 0 18px}
+  .menu-hero h1{font-size:32px}
+  .menu-hero p{font-size:13px}
+  .game-menu-card{grid-template-columns:64px minmax(0,1fr);padding:16px;gap:13px;border-radius:21px}
+  .gm-icon{width:64px;height:64px;border-radius:19px;font-size:33px}
+  .gm-body h2{font-size:22px}
+  .gm-body p{font-size:11.5px}
+  .gm-side{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:flex-end;min-width:0}
+  .gm-side b{font-size:22px}
+  .gm-enter{margin-top:0;margin-left:7px}
+  .menu-coming{font-size:10.5px}
   .game-nav{padding-bottom:12px}
   .nav-pill{height:38px;padding:0 13px;font-size:11px}
   .game-nav .nav-note{display:none}
@@ -736,6 +801,7 @@ img{max-width:100%;display:block}
   .study-body{padding:21px 17px 21px;gap:12px}
   .word-row h2{font-size:31px}
   .steps li{font-size:13px;line-height:1.78}
+  .voice-chip{font-size:10.5px;padding:0 11px;min-height:40px}
   .nav-btn{height:46px;padding:0 15px;font-size:12px}
   .dots{order:3;flex-basis:100%;justify-content:center;margin:4px 0 0}
   .game-shell{padding:14px 12px 18px;border-radius:24px}
@@ -798,7 +864,7 @@ img{max-width:100%;display:block}
     <span class="brand-logo" aria-hidden="true">🌈</span>
     <span class="brand-text">
       <span class="brand-name">优优教育</span>
-      <span class="brand-sub">一年级语文 · 拼音星球</span>
+      <span class="brand-sub">优优学习游戏乐园</span>
     </span>
   </button>
   <span class="top-spacer"></span>
@@ -808,7 +874,7 @@ img{max-width:100%;display:block}
     <span class="s-total">/ 18</span>
   </div>
   <button class="sound-btn" id="soundBtn" type="button" aria-pressed="true" aria-label="音效开关" title="音效开关">
-    <span id="soundIcon" aria-hidden="true">🔊</span><span class="sound-text" id="soundText">音效</span>
+    <span id="soundIcon" aria-hidden="true">🔊</span><span class="sound-text" id="soundText">声音</span>
   </button>
   <button class="parent-btn" id="parentBtn" type="button" aria-label="打开家长中心">
     <span aria-hidden="true">👨‍👩‍👧</span>
@@ -838,10 +904,16 @@ img{max-width:100%;display:block}
 <script>
 "use strict";
 /* ================= 课程数据 ================= */
-const GAME_MENUS = [
-  { id: "pinyin", label: "拼音闯关", icon: "🔤", action: "map", current: true },
-  { id: "map", label: "学习地图", icon: "🗺️", action: "map" },
-  { id: "help", label: "玩法说明", icon: "❓", action: "help" }
+const GAME_CATALOG = [
+  {
+    id: "pinyin",
+    title: "拼音闯关",
+    grade: "一年级上册 · 语文",
+    icon: "🔤",
+    description: "六个拼音单元，二十片知识叶子，六种小游戏。先学再玩，逐步收齐十八颗星。",
+    tags: ["人教版", "6 个单元", "20 个知识点", "每题可朗读"],
+    path: "/pinyin"
+  }
 ];
 
 const UNITS = [
@@ -1132,7 +1204,34 @@ const SHORT_LABEL = {
   u5p1: "前鼻韵母", u5p2: "后鼻韵母", u5p3: "标调规则",
   u6p1: "两拼音节", u6p2: "三拼音节", u6p3: "ü 去两点"
 };
-UNITS.forEach(unit => unit.points.forEach(point => { point.short = SHORT_LABEL[point.id] || point.word; }));
+const POINT_SPEECH = {
+  u1p1: "单韵母 a o e。a，张大嘴巴啊啊啊。o，圆圆嘴巴喔喔喔。e，扁扁嘴巴鹅鹅鹅。",
+  u1p2: "单韵母 i u ü。i，衣服的衣。u，乌鸦的乌。ü，小鱼的迂。小 i 戴帽摘掉点，小 ü 戴帽两点留。",
+  u1p3: "四个声调。一声平，二声扬，三声拐弯，四声降。妈妈。你好。",
+  u2p1: "声母 b p m f。b，读玻。p，读坡。m，读摸。f，读佛。b 气流弱，p 送气强。",
+  u2p2: "声母 d t n l。d，读得。t，读特。n，读讷。l，读勒。d 气流弱，t 送气强。",
+  u2p3: "声母 g k h。g，读哥。k，读科。h，读喝。g 气流弱，k 送气强，h 像哈气。",
+  u2p4: "声母 j q x。j，读基。q，读欺。x，读希。小 ü 见 j q x，脱帽敬礼还读 ü。",
+  u3p1: "平舌音 z c s。z，读资。c，读雌。s，读思。舌尖平平向前，不要卷舌。",
+  u3p2: "翘舌音 zh ch sh r。zh，读知。ch，读吃。sh，读诗。r，读日。舌尖轻轻翘起来。",
+  u3p3: "带路字母 y w。i 前加 y，u 前加 w，ü 前把两点去掉写成 yu。衣服，乌鸦，小鱼。",
+  u4p1: "复韵母 ai ei ui。ai，挨。ei，诶。ui，威。三个音都要滑着读，一口气连起来。",
+  u4p2: "复韵母 ao ou iu。ao，熬。ou，欧。iu，优。ao 标 a，ou 标 o，iu 标后面的 u。",
+  u4p3: "特殊韵母 ie üe er。ie，耶。üe，约。er，儿。ie 和 üe 滑着读，er 要卷舌。",
+  u4p4: "整体认读音节。知，吃，诗，日，资，雌，思，衣，乌，迂，耶，约，冤，因，晕，英。整体记住，看到就直接读。",
+  u5p1: "前鼻韵母 an en in un ün。安，恩，因，温，晕。结尾舌尖抵住上牙床，鼻音轻轻收。",
+  u5p2: "后鼻韵母 ang eng ing ong。昂，鞥，英，翁。舌根往后抬，结尾 ng 收住别拆开。",
+  u5p3: "标调规则。有 a 不放过，没 a 找 o e，i u 并列标在后。好，狗，刘，对。",
+  u6p1: "两拼音节。前音轻短后音重，两音相连猛一碰。八，妈，平。",
+  u6p2: "三拼音节。声轻，介快，韵母响，三音连读别断开。家，花，快。",
+  u6p3: "小 ü 遇到 j q x y 去两点，遇到 n l 两点保留。菊花，出去，需要，雨，女孩，绿色。"
+};
+
+UNITS.forEach(unit => unit.points.forEach(point => {
+  point.short = SHORT_LABEL[point.id] || point.word;
+  point.speech = POINT_SPEECH[point.id] || `${point.word}，${point.cn}。${point.tip}`;
+  point.lessonSpeech = `${point.word}，${point.cn}。${point.steps.join(" ")} 小妙招：${point.tip} 举个例子：${point.example}`;
+}));
 
 /* ================= 存档 ================= */
 const STORE_KEY = "youyou_pinyin_grade1_v1";
@@ -1219,6 +1318,92 @@ const sfx = {
   win() { [523, 659, 784, 1046, 1318].forEach((f, i) => beep(f, 0.25, "triangle", 0.058, i * 0.12)); }
 };
 
+/* ================= 中文朗读 ================= */
+let chineseVoice = null;
+let speechWarningShown = false;
+
+function refreshChineseVoice() {
+  if (!("speechSynthesis" in window)) return;
+  try {
+    const voices = window.speechSynthesis.getVoices() || [];
+    const chinese = voices.filter(voice => /^zh([-_]|$)/i.test(voice.lang || "") || /chinese|中文|汉语|普通话/i.test(voice.name || ""));
+    chineseVoice = chinese.find(voice => /xiaoxiao|huihui|yaoyao|female|女/i.test(voice.name || ""))
+      || chinese.find(voice => voice.localService)
+      || chinese[0]
+      || null;
+  } catch (error) {
+    chineseVoice = null;
+  }
+}
+
+if ("speechSynthesis" in window) {
+  refreshChineseVoice();
+  if (typeof window.speechSynthesis.addEventListener === "function") {
+    window.speechSynthesis.addEventListener("voiceschanged", refreshChineseVoice);
+  }
+}
+
+function stopSpeech() {
+  try {
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+  } catch (error) {
+    // Speech synthesis is an enhancement; the page remains usable without it.
+  }
+}
+
+function speakText(text, options = {}) {
+  if (!store.sound || !text) return false;
+  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+    if (!speechWarningShown) {
+      speechWarningShown = true;
+      toast("当前浏览器没有中文朗读功能，请换用 Edge、Chrome 或系统浏览器");
+    }
+    return false;
+  }
+  refreshChineseVoice();
+  try {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "zh-CN";
+    utterance.rate = options.rate || 0.82;
+    utterance.pitch = options.pitch || 1.06;
+    utterance.volume = 1;
+    if (chineseVoice) utterance.voice = chineseVoice;
+    window.speechSynthesis.speak(utterance);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function speakAnswerFeedback(ok) {
+  if (ok) speakText("太棒了", { rate: 0.9, pitch: 1.28 });
+  else speakText("呃呃，继续努力", { rate: 0.88, pitch: 1.04 });
+}
+
+const PINYIN_SPEECH = {
+  a: "啊", o: "喔", e: "鹅", i: "衣", u: "乌", ü: "迂",
+  b: "玻", p: "坡", m: "摸", f: "佛", d: "得", t: "特", n: "讷", l: "勒",
+  g: "哥", k: "科", h: "喝", j: "基", q: "欺", x: "希",
+  z: "资", c: "雌", s: "思", zh: "知", ch: "吃", sh: "诗", r: "日", y: "衣", w: "乌",
+  ai: "挨", ei: "诶", ui: "威", ao: "熬", ou: "欧", iu: "优",
+  ie: "耶", üe: "约", er: "儿", yi: "衣", wu: "乌", yu: "迂", zhi: "知",
+  yue: "约", yuan: "冤", ying: "英"
+};
+
+function speechifyPinyin(text) {
+  const tokens = Object.keys(PINYIN_SPEECH).sort((a, b) => b.length - a.length);
+  let output = String(text);
+  tokens.forEach(token => {
+    output = output.replace(new RegExp(`(^|[^A-Za-zÀ-ÿ])${token}(?=$|[^A-Za-zÀ-ÿ])`, "g"), (match, prefix) => prefix + PINYIN_SPEECH[token]);
+  });
+  return output;
+}
+
+function stripLatinForSpeech(text) {
+  return String(text).replace(/[A-Za-zÀ-ÿāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]+/g, "").replace(/\s+/g, " ").trim();
+}
+
 /* ================= 页面工具 ================= */
 const app = document.getElementById("app");
 const modalRoot = document.getElementById("modalRoot");
@@ -1292,6 +1477,7 @@ function paintTopStars(pop) {
 function route() {
   const raw = location.hash.replace(/^#\/?/, "");
   const parts = raw.split("/").filter(Boolean);
+  if (parts[0] === "pinyin") return { name: "pinyin" };
   if (parts[0] === "unit" && parts[1]) {
     const unit = unitOf(parts[1]);
     if (unit) {
@@ -1311,9 +1497,11 @@ function go(hash) {
 }
 
 function render() {
+  stopSpeech();
   const current = route();
   closeModal();
   if (current.name === "home") renderHome();
+  else if (current.name === "pinyin") renderPinyinHome();
   else renderUnit(current.unit, current.tab, current.index);
   paintTopStars(false);
   window.scrollTo({ top: 0, behavior: "auto" });
@@ -1350,22 +1538,53 @@ function unitCard(unit, column, row) {
   </article>`;
 }
 
-function homeNavHtml() {
-  return GAME_MENUS.map(menu => `<button class="nav-pill" type="button" data-menu="${menu.id}" data-action="${menu.action}" aria-current="${menu.current ? "true" : "false"}">
-    <span aria-hidden="true">${menu.icon}</span>${esc(menu.label)}
-  </button>`).join("") + `<span class="nav-note">更多游戏菜单可以继续加在这里</span>`;
+function renderHome() {
+  setAccent(null);
+  const total = totalStars();
+  app.innerHTML = `
+    <section class="menu-hero">
+      <h1>今天玩哪一个？</h1>
+      <p>每个游戏都有自己的入口。点一个菜单，就进入对应的学习地图和小游戏。</p>
+    </section>
+    <section class="game-list" aria-label="游戏菜单">
+      ${GAME_CATALOG.map(game => `<button class="game-menu-card" type="button" data-open-game="${game.id}" aria-label="进入${esc(game.title)}">
+        <span class="gm-icon" aria-hidden="true">${game.icon}</span>
+        <span class="gm-body">
+          <span class="gm-kicker">${esc(game.grade)}</span>
+          <h2>${esc(game.title)}</h2>
+          <p>${esc(game.description)}</p>
+          <span class="gm-tags">${game.tags.map(tag => `<span>${esc(tag)}</span>`).join("")}</span>
+        </span>
+        <span class="gm-side">
+          <b>${total}</b><span>/ 18 颗星</span>
+          <span class="gm-enter">进入游戏 →</span>
+        </span>
+      </button>`).join("")}
+    </section>
+    <div class="menu-coming" style="margin-top:12px"><span aria-hidden="true">＋</span>后面的数学、英语游戏会继续加在这里。</div>`;
+
+  app.querySelectorAll("[data-open-game]").forEach(button => button.addEventListener("click", () => {
+    sfx.click();
+    const game = GAME_CATALOG.find(item => item.id === button.dataset.openGame);
+    if (game) go(game.path);
+  }));
 }
 
-function renderHome() {
+function renderPinyinHome() {
   setAccent(null);
   const left = UNITS.slice(0, 3).map((unit, index) => unitCard(unit, 1, index + 1)).join("");
   const right = UNITS.slice(3).map((unit, index) => unitCard(unit, 3, index + 1)).join("");
   app.innerHTML = `
-    <section class="home-intro">
-      <h1>去<em>拼音星球</em><br>摘下十八颗星</h1>
-      <p>每个单元都为你打开。点一片知识小叶子，先读一读、记一记，再去玩一局；也可以直接点“玩一玩”挑战自己。</p>
-    </section>
-    <nav class="game-nav" aria-label="游戏菜单">${homeNavHtml()}</nav>
+    <header class="page-head">
+      <button class="back-btn" type="button" id="backMenu">← 游戏菜单</button>
+      <button class="back-btn" type="button" id="helpFromMap">玩法说明</button>
+      <div class="head-main">
+        <p class="eyebrow">游戏 01</p>
+        <h1>拼音闯关 <span>一年级上册 · 语文</span></h1>
+        <p class="head-sub">点知识叶子先学，点“玩一玩”挑战。所有题目都可以按喇叭重新朗读。</p>
+      </div>
+      <span class="head-stars">⭐ ${totalStars()}/18</span>
+    </header>
     <p class="map-hint">点任意一片叶子，直接开始学</p>
     <section class="map" id="map">
       <svg class="map-lines" id="mapLines" aria-hidden="true"></svg>
@@ -1392,11 +1611,11 @@ function renderHome() {
     sfx.click();
     go(`/unit/${button.dataset.game}/game`);
   }));
-  app.querySelectorAll("[data-menu]").forEach(button => button.addEventListener("click", () => {
+  document.getElementById("backMenu").addEventListener("click", () => {
     sfx.click();
-    if (button.dataset.action === "help") openHelp();
-    else document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "start" });
-  }));
+    go("/");
+  });
+  document.getElementById("helpFromMap").addEventListener("click", openHelp);
   requestAnimationFrame(drawMapLines);
 }
 
@@ -1449,7 +1668,7 @@ function renderUnit(unit, tab, index) {
   const stars = store.stars[unit.id] || 0;
   app.innerHTML = `
     <header class="page-head">
-      <button class="back-btn" type="button" id="backHome">← 学习地图</button>
+      <button class="back-btn" type="button" id="backHome">← 拼音地图</button>
       <div class="head-main">
         <p class="eyebrow">第 ${unit.no} 单元</p>
         <h1>${esc(unit.title)} <span>${esc(unit.en)}</span></h1>
@@ -1469,7 +1688,8 @@ function renderUnit(unit, tab, index) {
 
   document.getElementById("backHome").addEventListener("click", () => {
     sfx.click();
-    go("/");
+    stopSpeech();
+    go("/pinyin");
   });
   app.querySelectorAll("[data-tab]").forEach(button => button.addEventListener("click", () => {
     sfx.click();
@@ -1499,13 +1719,17 @@ function renderStudy(unit, index) {
           <span class="main">${point.emoji}</span>
           <span class="side">${point.side[1]}</span>
         </div>
-        <div class="illus-word">${esc(point.word)}</div>
+        <button class="illus-word" type="button" id="pointSpeak" data-point-speak aria-label="朗读 ${esc(point.word)}">${esc(point.word)} <span aria-hidden="true" style="font-size:16px;vertical-align:middle">🔊</span></button>
         <div class="illus-gloss">${esc(point.cn)}</div>
       </div>
       <div class="study-body">
         <div class="leaf-count">第 ${index + 1} / ${unit.points.length} 片知识叶子</div>
         <div class="word-row"><h2>${esc(point.word)}</h2><span class="phon">${esc(point.phon)}</span></div>
         <div class="cn-meaning">${esc(point.cn)}</div>
+        <div class="study-voice-row">
+          <button class="voice-chip primary" type="button" id="readPoint">🔊 听拼音</button>
+          <button class="voice-chip" type="button" id="readLesson">📖 朗读讲解</button>
+        </div>
         <ol class="steps">${point.steps.map(step => `<li>${esc(step)}</li>`).join("")}</ol>
         <div class="tip-box"><span class="bx-ico" aria-hidden="true">💡</span><div class="bx-body"><b>小妙招</b>${esc(point.tip)}</div></div>
         <div class="example-box"><span class="bx-ico" aria-hidden="true">🌰</span><div class="bx-body"><b>举个例子</b>${esc(point.example)}</div></div>
@@ -1521,6 +1745,12 @@ function renderStudy(unit, index) {
     sfx.click();
     go(`/unit/${unit.id}/study/${button.dataset.cap}`);
   }));
+  const readPoint = () => speakText(point.speech, { rate: 0.76, pitch: 1.08 });
+  document.getElementById("pointSpeak").addEventListener("click", readPoint);
+  document.getElementById("readPoint").addEventListener("click", readPoint);
+  document.getElementById("readLesson").addEventListener("click", () => {
+    speakText(point.lessonSpeech, { rate: 0.82, pitch: 1.04 });
+  });
   const previous = document.getElementById("prevPoint");
   const next = document.getElementById("nextPoint");
   previous.addEventListener("click", () => {
@@ -1666,7 +1896,8 @@ function startRun(unit) {
     selected: null,
     slots: [],
     tileOrder: [],
-    dialTone: 0
+    dialTone: 0,
+    spokenIndex: -1
   };
   renderGameStage(unit);
   paintTopStars(false);
@@ -1704,6 +1935,37 @@ function renderGamePanel(unit) {
   });
 }
 
+function questionSpeechText(unit) {
+  const state = gameState;
+  const question = state.questions[state.index];
+  if (!question) return "";
+  if (state.type === "assign") {
+    const tones = ["第一声", "第二声", "第三声", "第四声"];
+    return `请给 ${PINYIN_SPEECH[question.letter] || question.letter} 戴${tones[question.tone - 1]}帽子。看清第几声，再点一顶声调帽。`;
+  }
+  if (state.type === "place") {
+    return `把声母 ${PINYIN_SPEECH[question.initial] || question.initial} 放到正确的小屋。先看它属于哪一组，再点一间声母小屋。`;
+  }
+  if (state.type === "catch") {
+    return `${speechifyPinyin(question.prompt)} 看清拼音卡，再敲中正确的那一只。`;
+  }
+  if (state.type === "sort") {
+    return `请把 ${PINYIN_SPEECH[question.text] || question.text} 送到正确的果篮。先点卡片，再点果篮。`;
+  }
+  if (state.type === "build") {
+    return `拼出 ${stripLatinForSpeech(question.cn)} 的鼻韵母。先看音节，再点两块云朵零件。`;
+  }
+  if (state.type === "simulate") {
+    return `给 ${question.cn} 调好声调，再输入音节。先拨动声调盘，再输入不带调号的拼音字母。`;
+  }
+  return "";
+}
+
+function readCurrentQuestion(unit) {
+  sfx.click();
+  speakText(questionSpeechText(unit), { rate: 0.78, pitch: 1.06 });
+}
+
 function renderGameStage(unit) {
   const state = gameState;
   const panel = document.getElementById("panel");
@@ -1714,6 +1976,7 @@ function renderGameStage(unit) {
         <b>第 ${Math.min(state.index + 1, total)} / ${total} 题</b>
         <span class="hud-score">答对 ${state.correct}</span>
         <span class="hud-spacer"></span>
+        <button class="hud-voice" type="button" id="readQuestion">🔊 再读一遍</button>
         <button class="hud-exit" type="button" id="exitGame">退出练习</button>
       </div>
       <div class="pbar"><i style="width:${(state.index / total) * 100}%"></i></div>
@@ -1721,9 +1984,11 @@ function renderGameStage(unit) {
     </section>`;
   document.getElementById("exitGame").addEventListener("click", () => {
     sfx.click();
+    stopSpeech();
     gameState = null;
     renderGamePanel(unit);
   });
+  document.getElementById("readQuestion").addEventListener("click", () => readCurrentQuestion(unit));
   if (state.index >= total) {
     finishGame(unit);
     return;
@@ -1737,6 +2002,14 @@ function renderGameStage(unit) {
     simulate: renderSimulate
   };
   renderers[state.type](unit);
+  if (state.spokenIndex !== state.index) {
+    state.spokenIndex = state.index;
+    setTimeout(() => {
+      if (gameState === state && !state.locked && state.index === state.spokenIndex) {
+        speakText(questionSpeechText(unit), { rate: 0.78, pitch: 1.06 });
+      }
+    }, 260);
+  }
 }
 
 function advance(unit, ok) {
@@ -1744,6 +2017,8 @@ function advance(unit, ok) {
   if (ok) state.correct += 1;
   state.locked = true;
   state.index += 1;
+  stopSpeech();
+  speakAnswerFeedback(ok);
   const stage = document.getElementById("stage");
   const feedback = document.createElement("div");
   feedback.className = "game-feedback " + (ok ? "ok" : "no");
@@ -1761,7 +2036,7 @@ function advance(unit, ok) {
       state.dialTone = 0;
       renderGameStage(unit);
     }
-  }, ok ? 760 : 1450);
+  }, ok ? 950 : 1650);
 }
 
 /* ================= 六种游戏 ================= */
@@ -1792,13 +2067,11 @@ function renderAssign(unit) {
     const ok = option.tone === question.tone;
     if (ok) {
       button.classList.add("correct");
-      sfx.correct();
     } else {
       button.classList.add("wrong");
       stage.querySelectorAll("[data-hat]").forEach((item, i) => {
         if (question.options[i].tone === question.tone) item.classList.add("correct");
       });
-      sfx.wrong();
     }
     document.getElementById("gameLine").textContent = ok
       ? `戴对啦！${question.letter} 变成 ${question.options[question.tone - 1].mark}。`
@@ -1833,13 +2106,11 @@ function renderPlace(unit) {
     const ok = index === question.correctGroup;
     if (ok) {
       button.classList.add("correct");
-      sfx.correct();
     } else {
       button.classList.add("wrong");
       stage.querySelectorAll("[data-room]").forEach((item, i) => {
         if (i === question.correctGroup) item.classList.add("correct");
       });
-      sfx.wrong();
     }
     const group = question.groups[question.correctGroup];
     document.getElementById("gameLine").textContent = ok
@@ -1867,13 +2138,11 @@ function renderCatch(unit) {
     const option = question.options[Number(button.dataset.mole)];
     if (option.ok) {
       button.classList.add("correct");
-      sfx.correct();
     } else {
       button.classList.add("wrong");
       stage.querySelectorAll("[data-mole]").forEach((item, i) => {
         if (question.options[i].ok) item.classList.add("correct");
       });
-      sfx.wrong();
     }
     document.getElementById("gameLine").textContent = option.ok
       ? "敲对啦！拼音卡就是它。"
@@ -1930,13 +2199,11 @@ function renderSort(unit) {
     const ok = card.kind === button.dataset.basket;
     if (ok) {
       button.classList.add("hit");
-      sfx.correct();
     } else {
       button.classList.add("miss");
       stage.querySelectorAll("[data-basket]").forEach(item => {
         if (item.dataset.basket === card.kind) item.classList.add("hit");
       });
-      sfx.wrong();
     }
     document.getElementById("gameLine").textContent = ok
       ? `${card.text} 回对家啦！`
@@ -1978,8 +2245,6 @@ function renderBuild(unit) {
   const check = () => {
     if (state.locked || state.slots.some(item => item === null)) return;
     const ok = state.slots.join("") === question.parts.join("");
-    if (ok) sfx.correct();
-    else sfx.wrong();
     document.getElementById("gameLine").textContent = ok
       ? `拼对啦！韵母是 ${question.parts.join("")}。`
       : `正确韵母是 ${question.parts.join("")}。`;
@@ -2076,8 +2341,6 @@ function renderSimulate(unit) {
     const typed = normalizeSpelling(document.getElementById("spellInput").value);
     const expected = normalizeSpelling(question.letters);
     const ok = state.dialTone === question.tone && typed === expected;
-    if (ok) sfx.correct();
-    else sfx.wrong();
     document.getElementById("gameLine").textContent = ok
       ? `调对啦！${question.cn} 是第 ${question.tone} 声，字母是 ${question.letters}。`
       : `正确是第 ${question.tone} 声，字母 ${question.letters}。`;
@@ -2146,7 +2409,7 @@ function renderGameResult(unit) {
       <div class="result-actions">
         <button class="nav-btn" type="button" id="resultStudy">回学一学</button>
         <button class="nav-btn primary" type="button" id="resultAgain">再玩一次</button>
-        <button class="nav-btn" type="button" id="resultHome">回学习地图</button>
+        <button class="nav-btn" type="button" id="resultHome">回拼音地图</button>
       </div>
     </div></section>`;
   document.getElementById("resultStudy").addEventListener("click", () => {
@@ -2159,7 +2422,8 @@ function renderGameResult(unit) {
   });
   document.getElementById("resultHome").addEventListener("click", () => {
     sfx.click();
-    go("/");
+    stopSpeech();
+    go("/pinyin");
   });
   paintTopStars(false);
 }
@@ -2237,7 +2501,7 @@ function openHelp() {
         <div class="modal-head">
           <div>
             <h2 id="helpTitle">玩法说明</h2>
-            <p>每个单元都有“学一学”和“玩一玩”。按钮都可以直接用手指或鼠标点击。</p>
+            <p>每个单元都有“学一学”和“玩一玩”。游戏题目会自动朗读，也可以点“再读一遍”。</p>
           </div>
           <button class="modal-close" type="button" id="helpClose" aria-label="关闭">✕</button>
         </div>
@@ -2249,7 +2513,7 @@ function openHelp() {
           <div class="help-item"><b>☁️ 建构型</b><p>点击云朵零件，拼出题目需要的鼻韵母。</p></div>
           <div class="help-item"><b>🎛️ 操作模拟型</b><p>拨动声调盘，再用键盘输入不带调号的拼音字母。</p></div>
         </div>
-        <div class="help-tip">每局 9 题。答对 8 至 9 题得 3 星，答对 6 至 7 题得 2 星，其余得 1 星。2 星以上会出现撒花庆祝。</div>
+        <div class="help-tip">每局 9 题。答对会听到“太棒了”，答错会听到“呃呃，继续努力”。答对 8 至 9 题得 3 星，答对 6 至 7 题得 2 星，其余得 1 星。</div>
       </div>
     </div>`;
   document.getElementById("helpClose").addEventListener("click", closeModal);
@@ -2404,15 +2668,16 @@ const soundButton = document.getElementById("soundBtn");
 function syncSoundButton() {
   soundButton.setAttribute("aria-pressed", String(Boolean(store.sound)));
   document.getElementById("soundIcon").textContent = store.sound ? "🔊" : "🔇";
-  document.getElementById("soundText").textContent = store.sound ? "音效" : "静音";
-  soundButton.title = store.sound ? "音效已开，点击关闭" : "音效已关，点击打开";
+  document.getElementById("soundText").textContent = store.sound ? "声音" : "静音";
+  soundButton.title = store.sound ? "声音已开，点击关闭" : "声音已关，点击打开";
 }
 soundButton.addEventListener("click", () => {
   store.sound = !store.sound;
   saveStore();
   syncSoundButton();
-  if (store.sound) sfx.correct();
-  toast(store.sound ? "音效已打开" : "音效已关闭");
+  if (store.sound) speakText("声音已打开", { rate: 0.9, pitch: 1.1 });
+  else stopSpeech();
+  toast(store.sound ? "声音已打开" : "声音已关闭");
 });
 syncSoundButton();
 
