@@ -1,5 +1,9 @@
 优优教育 · 一年级语文 · 拼音闯关
 
+线上网址
+https://jamescai-git.github.io/youyou-learning/
+手机和电脑打开这个网址即可，不用下载。
+
 一、电脑打开
 双击 index.html，网站会在默认浏览器中打开。无需联网、无需服务器、无需安装。
 
