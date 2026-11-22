@@ -1492,10 +1492,12 @@ if ("speechSynthesis" in window) {
 
 let audioRunToken = 0;
 let currentAudio = null;
+let speechRunToken = 0;
 const PINYIN_PLAYBACK_RATE = 0.68;
 const PINYIN_GAP_MS = 430;
 
 function stopVoiceSynthesis() {
+  speechRunToken += 1;
   try {
     if ("speechSynthesis" in window) window.speechSynthesis.cancel();
   } catch (error) {
@@ -1568,16 +1570,6 @@ function playPinyinAudio(keys, options = {}) {
   });
 }
 
-async function playThenSpeak(keys, text, options = {}) {
-  if (!store.sound) return;
-  if (!keys || !keys.length) {
-    speakText(text, options);
-    return;
-  }
-  const completed = await playPinyinAudio(keys, { rate: options.audioRate || PINYIN_PLAYBACK_RATE, gap: options.gap });
-  if (completed) speakText(text, { rate: options.rate || 0.7, pitch: 1.06 });
-}
-
 function speakText(text, options = {}) {
   if (!store.sound || !text) return false;
   if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
@@ -1589,7 +1581,8 @@ function speakText(text, options = {}) {
   }
   refreshChineseVoice();
   try {
-    window.speechSynthesis.cancel();
+    stopVoiceSynthesis();
+    const runToken = speechRunToken;
     const safeText = toStrictSpeechText(text);
     if (!safeText) return false;
     const utterance = new SpeechSynthesisUtterance(safeText);
@@ -1598,11 +1591,27 @@ function speakText(text, options = {}) {
     utterance.pitch = options.pitch || 1.06;
     utterance.volume = 1;
     if (chineseVoice) utterance.voice = chineseVoice;
+    utterance.onend = () => {
+      if (runToken === speechRunToken && typeof options.onend === "function") options.onend();
+    };
     window.speechSynthesis.speak(utterance);
     return true;
   } catch (error) {
     return false;
   }
+}
+
+function speakThenPlay(text, keys, options = {}) {
+  if (!store.sound) return;
+  const started = speakText(text, {
+    rate: options.speechRate || 0.7,
+    pitch: 1.06,
+    onend: () => playPinyinAudio(keys, {
+      rate: options.audioRate || PINYIN_PLAYBACK_RATE,
+      gap: options.gap
+    })
+  });
+  if (!started && keys && keys.length) playPinyinAudio(keys);
 }
 
 function speakAnswerFeedback(ok) {
@@ -1988,7 +1997,7 @@ function renderStudy(unit, index) {
   document.getElementById("pointSpeak").addEventListener("click", readPoint);
   document.getElementById("readPoint").addEventListener("click", readPoint);
   document.getElementById("readLesson").addEventListener("click", () => {
-    playThenSpeak(point.audioKeys, point.lessonSpeech, { audioRate: PINYIN_PLAYBACK_RATE, rate: 0.72 });
+    speakText(point.lessonSpeech, { rate: 0.7, pitch: 1.04 });
   });
   const previous = document.getElementById("prevPoint");
   const next = document.getElementById("nextPoint");
@@ -2246,16 +2255,16 @@ function questionInstructionText(unit) {
   if (!question) return "";
   if (state.type === "assign") {
     const tones = ["第一声", "第二声", "第三声", "第四声"];
-    return `请听这个韵母，再给它戴${tones[question.tone - 1]}帽子。看清声调，再点一顶帽子。`;
+    return `请听题目。接下来会播放一个韵母，请给它戴${tones[question.tone - 1]}帽子。看清声调，再点一顶帽子。`;
   }
   if (state.type === "place") {
-    return "请听这个声母，再把它放到正确的小屋。先看它属于哪一组。";
+    return "请听题目。接下来会播放一个声母，请把它放到正确的小屋。先看它属于哪一组。";
   }
   if (state.type === "catch") {
-    return "请听这个拼音，哪只地鼠举着它？看清卡片，再敲中正确的那一只。";
+    return "请听题目。接下来会播放一个拼音，哪只地鼠举着它？看清卡片，再敲中正确的那一只。";
   }
   if (state.type === "sort") {
-    return "请听这张拼音卡，再把它送到正确的果篮。先点卡片，再点果篮。";
+    return "请听题目。接下来会播放一张拼音卡，请把它送到正确的果篮。先点卡片，再点果篮。";
   }
   if (state.type === "build") {
     return `请拼出 ${stripLatinForSpeech(question.cn)} 的鼻韵母。先看音节，再点两块云朵零件。`;
@@ -2267,10 +2276,10 @@ function questionInstructionText(unit) {
 }
 
 function readCurrentQuestion(unit) {
-  playThenSpeak(questionAudioKeys(unit), questionInstructionText(unit), {
+  speakThenPlay(questionInstructionText(unit), questionAudioKeys(unit), {
     audioRate: PINYIN_PLAYBACK_RATE,
     gap: PINYIN_GAP_MS,
-    rate: 0.7
+    speechRate: 0.7
   });
 }
 
@@ -2284,6 +2293,7 @@ function renderGameStage(unit) {
         <b>第 ${Math.min(state.index + 1, total)} / ${total} 题</b>
         <span class="hud-score">答对 ${state.correct}</span>
         <span class="hud-spacer"></span>
+        ${questionAudioKeys(unit).length ? '<button class="hud-voice" type="button" id="hearQuestionPinyin">🔊 听拼音</button>' : ""}
         <button class="hud-voice" type="button" id="readQuestion">🔊 再读一遍</button>
         <button class="hud-exit" type="button" id="exitGame">退出练习</button>
       </div>
@@ -2297,6 +2307,8 @@ function renderGameStage(unit) {
     renderGamePanel(unit);
   });
   document.getElementById("readQuestion").addEventListener("click", () => readCurrentQuestion(unit));
+  const hearQuestionPinyin = document.getElementById("hearQuestionPinyin");
+  if (hearQuestionPinyin) hearQuestionPinyin.addEventListener("click", () => playPinyinAudio(questionAudioKeys(unit)));
   if (state.index >= total) {
     finishGame(unit);
     return;
@@ -2312,15 +2324,11 @@ function renderGameStage(unit) {
   renderers[state.type](unit);
   if (state.spokenIndex !== state.index) {
     state.spokenIndex = state.index;
-    setTimeout(() => {
-      if (gameState === state && !state.locked && state.index === state.spokenIndex) {
-        playThenSpeak(questionAudioKeys(unit), questionInstructionText(unit), {
-          audioRate: PINYIN_PLAYBACK_RATE,
-          gap: PINYIN_GAP_MS,
-          rate: 0.7
-        });
-      }
-    }, 260);
+    speakThenPlay(questionInstructionText(unit), questionAudioKeys(unit), {
+      audioRate: PINYIN_PLAYBACK_RATE,
+      gap: PINYIN_GAP_MS,
+      speechRate: 0.7
+    });
   }
 }
 
