@@ -466,7 +466,31 @@ let chineseVoice=null,speechRunToken=0,speechWarningShown=false;
 function refreshChineseVoice(){if(!("speechSynthesis"in window))return;try{const voices=window.speechSynthesis.getVoices()||[];const chinese=voices.filter(voice=>/^zh([-_]|$)/i.test(voice.lang||"")||/chinese|中文|汉语|普通话/i.test(voice.name||""));chineseVoice=chinese.find(voice=>/xiaoxiao|huihui|yaoyao|female|女/i.test(voice.name||""))||chinese.find(voice=>voice.localService)||chinese[0]||null}catch(error){chineseVoice=null}}
 if("speechSynthesis"in window){refreshChineseVoice();if(typeof window.speechSynthesis.addEventListener==="function")window.speechSynthesis.addEventListener("voiceschanged",refreshChineseVoice)}
 function stopSpeech(){speechRunToken++;try{if("speechSynthesis"in window)window.speechSynthesis.cancel()}catch(error){}}
-function speakText(text,options={}){if(!store.sound||!text)return false;if(!("speechSynthesis"in window)||typeof SpeechSynthesisUtterance==="undefined"){if(!speechWarningShown){speechWarningShown=true;toast("当前浏览器没有中文朗读功能，请换用 Edge、Chrome 或系统浏览器")}return false}refreshChineseVoice();try{stopSpeech();const runToken=speechRunToken,utterance=new SpeechSynthesisUtterance(String(text));utterance.lang="zh-CN";utterance.rate=options.rate||.6;utterance.pitch=options.pitch||1.04;utterance.volume=1;if(chineseVoice)utterance.voice=chineseVoice;window.speechSynthesis.speak(utterance);return true}catch(error){return false}}
+function normalizeSpeech(text){
+  return String(text)
+    .replace(/数一数/g,"鼠一鼠")
+    .replace(/数一个/g,"鼠一个")
+    .replace(/数数/g,"鼠树")
+    .replace(/数到最后/g,"鼠到最后")
+    .replace(/数到五/g,"鼠到五")
+    .replace(/从0开始数/g,"从零开始鼠")
+    .replace(/往前数/g,"往前鼠")
+    .replace(/倒着数/g,"倒着鼠")
+    .replace(/从头数/g,"从头鼠")
+    .replace(/接着数/g,"接着鼠")
+    .replace(/点着数/g,"点着鼠")
+    .replace(/再数/g,"再鼠")
+    .replace(/重新数/g,"重新鼠")
+    .replace(/数出/g,"鼠出")
+    .replace(/数完/g,"鼠完")
+    .replace(/漏数/g,"漏鼠")
+    .replace(/数对了/g,"鼠对了")
+    .replace(/各数一遍/g,"各鼠一遍")
+    .replace(/数一遍/g,"鼠一遍")
+    .replace(/数(?=[一二三四五六七八九十])/g,"鼠")
+    .replace(/数(?=\d)/g,"鼠")
+    .replace(/数/g,"树");
+}function speakText(text,options={}){if(!store.sound||!text)return false;if(!("speechSynthesis"in window)||typeof SpeechSynthesisUtterance==="undefined"){if(!speechWarningShown){speechWarningShown=true;toast("当前浏览器没有中文朗读功能，请换用 Edge、Chrome 或系统浏览器")}return false}refreshChineseVoice();try{stopSpeech();const runToken=speechRunToken,utterance=new SpeechSynthesisUtterance(normalizeSpeech(text));utterance.lang="zh-CN";utterance.rate=options.rate||.6;utterance.pitch=options.pitch||1.04;utterance.volume=1;if(chineseVoice)utterance.voice=chineseVoice;window.speechSynthesis.speak(utterance);return true}catch(error){return false}}
 const AudioContext=window.AudioContext||window.webkitAudioContext;let audioCtx=null;
 function tone(freq,duration,type,delay){if(!store.sound)return;try{audioCtx=audioCtx||new AudioContext();const start=audioCtx.currentTime+delay,osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type=type;osc.frequency.value=freq;gain.gain.setValueAtTime(.12,start);gain.gain.exponentialRampToValueAtTime(.001,start+duration);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(start);osc.stop(start+duration)}catch(error){}}
 const sfx={click(){tone(660,.08,"sine",0)},correct(){tone(680,.13,"sine",0);tone(920,.16,"sine",.1)},wrong(){tone(210,.19,"triangle",0);tone(160,.25,"triangle",.12)},cheer(){[523,659,784,1047].forEach((freq,index)=>tone(freq,.18,"sine",index*.11))}};
