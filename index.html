@@ -913,6 +913,15 @@ const GAME_CATALOG = [
     description: "六个拼音单元，二十片知识叶子，六种小游戏。先学再玩，逐步收齐十八颗星。",
     tags: ["人教版", "6 个单元", "20 个知识点", "每题可朗读"],
     path: "/pinyin"
+  },
+  {
+    id: "math10",
+    title: "10以内加与减",
+    grade: "一年级上册 · 数学",
+    icon: "🌈",
+    description: "北师大版六个数学单元，二十片知识叶子，六种小游戏。先学再玩，逐步收齐十八颗星。",
+    tags: ["北师大版", "6 个单元", "20 个知识点", "每题可朗读"],
+    path: "math10.html"
   }
 ];
 
@@ -1783,6 +1792,17 @@ function unitCard(unit, column, row) {
   </article>`;
 }
 
+function totalGameStars(storageKey) {
+  try {
+    const raw = localStorage.getItem(storageKey);
+    const saved = raw ? JSON.parse(raw) : null;
+    if (!saved || typeof saved !== "object") return 0;
+    return Object.values(saved.stars || {}).reduce((sum, value) => sum + (Number(value) || 0), 0);
+  } catch (error) {
+    return 0;
+  }
+}
+
 function renderHome() {
   setAccent(null);
   const total = totalStars();
@@ -1801,7 +1821,7 @@ function renderHome() {
           <span class="gm-tags">${game.tags.map(tag => `<span>${esc(tag)}</span>`).join("")}</span>
         </span>
         <span class="gm-side">
-          <b>${total}</b><span>/ 18 颗星</span>
+          <b>${game.id === "math10" ? totalGameStars("youyou_math10_v1") : total}</b><span>/ 18 颗星</span>
           <span class="gm-enter">进入游戏 →</span>
         </span>
       </button>`).join("")}
@@ -1811,7 +1831,10 @@ function renderHome() {
   app.querySelectorAll("[data-open-game]").forEach(button => button.addEventListener("click", () => {
     sfx.click();
     const game = GAME_CATALOG.find(item => item.id === button.dataset.openGame);
-    if (game) go(game.path);
+    if (game) {
+      if (game.id === "math10") location.href = "math10.html";
+      else go(game.path);
+    }
   }));
 }
 
