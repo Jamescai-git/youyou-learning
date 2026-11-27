@@ -764,7 +764,7 @@ function go(path,speak){
   stopSpeech();
   pendingSpeak=!!speak;
   try{history.pushState(null,'','#'+path)}catch(error){location.hash=path}
-  render();
+  render(true);
 }
 function parseRoute(){
   const raw=(location.hash||'').replace(/^#/,'');
