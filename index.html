@@ -922,6 +922,15 @@ const GAME_CATALOG = [
     description: "北师大版六个数学单元，二十片知识叶子，六种小游戏。先学再玩，逐步收齐十八颗星。",
     tags: ["北师大版", "6 个单元", "20 个知识点", "每题可朗读"],
     path: "math10.html"
+  },
+  {
+    id: "chengfa",
+    title: "乘法口诀大富翁",
+    grade: "二年级上册 · 数学",
+    icon: "🎲",
+    description: "北师大版二年级上册乘法口诀，六关十六个知识点，五种小游戏。先学再玩，一路盖房子、盖城堡。",
+    tags: ["北师大版 2025", "6 关", "16 个知识点", "每题可朗读"],
+    path: "chengfa.html"
   }
 ];
 
@@ -1821,7 +1830,7 @@ function renderHome() {
           <span class="gm-tags">${game.tags.map(tag => `<span>${esc(tag)}</span>`).join("")}</span>
         </span>
         <span class="gm-side">
-          <b>${game.id === "math10" ? totalGameStars("youyou_math10_v1") : total}</b><span>/ 18 颗星</span>
+          <b>${game.id === "math10" ? totalGameStars("youyou_math10_v1") : game.id === "chengfa" ? totalGameStars("youyou_chengfa_grade2_v1") : total}</b><span>/ ${game.id === "chengfa" ? 54 : 18} 颗星</span>
           <span class="gm-enter">进入游戏 →</span>
         </span>
       </button>`).join("")}
@@ -1832,7 +1841,7 @@ function renderHome() {
     sfx.click();
     const game = GAME_CATALOG.find(item => item.id === button.dataset.openGame);
     if (game) {
-      if (game.id === "math10") location.href = "math10.html";
+      if (/\.html$/.test(game.path)) location.href = game.path;
       else go(game.path);
     }
   }));
